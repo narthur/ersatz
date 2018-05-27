@@ -4,6 +4,10 @@ namespace ersatz;
 
 trait Mock
 {
+	public function __construct() {
+		// Override __construct in all mocks
+	}
+	
 	public function setReturnValue( $method, $returnValue ) {
 		$field = $method . "ReturnValue";
 		$this->$field = $returnValue;

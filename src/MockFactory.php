@@ -23,8 +23,6 @@ class MockFactory
 		$php[] = <<<EOT
 class $mockShortName $extends $mockedNamespace\\$mockedShortName {
 	use \\ersatz\Mock;
-
-	public function __construct() {}
 EOT;
 		$php = $this->addMethodPhp( $reflection, $php );
 		$php[] = '}';
