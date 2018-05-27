@@ -23,4 +23,20 @@ trait Mock
 	
 		return $this->$callsProperty;
 	}
+	
+	protected function handleCall( $methodName, $args ) {
+		$callsField = $methodName . "Calls";
+		$valueField = $methodName . "ReturnValue";
+		$valuesField = $methodName . "ReturnValues";
+		
+		$this->$callsField[] = $args;
+		
+		if ( ! empty($this->$valuesField) ) {
+			return array_shift($this->$valuesField);
+		}
+		
+		if ( isset( $this->$valueField ) ) {
+			return $this->$valueField;
+		}
+	}
 }

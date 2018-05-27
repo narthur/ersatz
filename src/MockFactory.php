@@ -48,21 +48,11 @@ EOT;
 				}
 			}
 			$paramString = implode( ',', $params );
-			$valueField = $methodName . "ReturnValue";
-			$valuesField = $methodName . "ReturnValues";
 			$php[] = <<<EOT
 	private \${$methodName}Calls = [];
 	
 	public function $methodName($paramString) {
-		\$this->{$methodName}Calls[] = func_get_args();
-		
-		if ( ! empty(\$this->$valuesField) ) {
-			return array_shift(\$this->$valuesField);
-		}
-		
-		if ( isset( \$this->$valueField ) ) {
-			return \$this->$valueField;
-		}
+		return \$this->handleCall("$methodName", func_get_args());
 	}
 EOT;
 		}
