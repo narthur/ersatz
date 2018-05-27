@@ -30,11 +30,6 @@ class $mockShortName $extends $mockedNamespace\\$mockedShortName {
 		\$field = \$method . "ReturnValues";
 		\$this->\$field = \$returnValues;
 	}
-	public function getCalls ( \$method ) {
-		\$callsProperty = \$method . "Calls";
-	
-		return \$this->\$callsProperty;
-	}
 EOT;
 		$php = $this->addMethodPhp( $reflection, $php );
 		$php[] = '}';

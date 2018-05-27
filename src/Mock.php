@@ -8,4 +8,10 @@ trait Mock
 		$field = $method . "ReturnValue";
 		$this->$field = $returnValue;
 	}
+	
+	public function getCalls ( $method ) {
+		$callsProperty = $method . "Calls";
+	
+		return $this->$callsProperty;
+	}
 }

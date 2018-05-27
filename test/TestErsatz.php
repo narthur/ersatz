@@ -28,4 +28,15 @@ final class TestErsatz extends DevTestCase
 		
 		$this->assertEquals( "returnValue", $result );
 	}
+	
+	public function testGetCalls()
+	{
+		$this->mockiInterface->someFunction("hi");
+		
+		$calls = $this->mockiInterface->getCalls( "someFunction" );
+		
+		$this->assertEquals( [
+			["hi"]
+		], $calls );
+	}
 }
