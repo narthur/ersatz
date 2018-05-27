@@ -49,8 +49,6 @@ EOT;
 			}
 			$paramString = implode( ',', $params );
 			$php[] = <<<EOT
-	private \${$methodName}Calls = [];
-	
 	public function $methodName($paramString) {
 		return \$this->handleCall("$methodName", func_get_args());
 	}
