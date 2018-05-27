@@ -25,11 +25,6 @@ class $mockShortName $extends $mockedNamespace\\$mockedShortName {
 	use \\ersatz\Mock;
 
 	public function __construct() {}
-	
-	public function setReturnValues( \$method, \$returnValues ) {
-		\$field = \$method . "ReturnValues";
-		\$this->\$field = \$returnValues;
-	}
 EOT;
 		$php = $this->addMethodPhp( $reflection, $php );
 		$php[] = '}';

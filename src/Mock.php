@@ -9,6 +9,11 @@ trait Mock
 		$this->$field = $returnValue;
 	}
 	
+	public function setReturnValues( $method, $returnValues ) {
+		$field = $method . "ReturnValues";
+		$this->$field = $returnValues;
+	}
+	
 	public function getCalls ( $method ) {
 		$callsProperty = $method . "Calls";
 	

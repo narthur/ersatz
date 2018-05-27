@@ -22,21 +22,34 @@ final class TestErsatz extends DevTestCase
 	
 	public function testSetReturnValue()
 	{
-		$this->mockiInterface->setReturnValue( "someFunction", "returnValue" );
+		$this->mockiInterface->setReturnValue("someFunction", "returnValue");
 		
 		$result = $this->mockiInterface->someFunction("hi");
 		
-		$this->assertEquals( "returnValue", $result );
+		$this->assertEquals("returnValue", $result);
 	}
 	
 	public function testGetCalls()
 	{
 		$this->mockiInterface->someFunction("hi");
 		
-		$calls = $this->mockiInterface->getCalls( "someFunction" );
+		$calls = $this->mockiInterface->getCalls("someFunction");
 		
-		$this->assertEquals( [
+		$this->assertEquals([
 			["hi"]
-		], $calls );
+		], $calls);
+	}
+	
+	public function testSetReturnValues()
+	{
+		$this->mockiInterface->setReturnValues("someFunction", [1, 2, 3]);
+		
+		$result1 = $this->mockiInterface->someFunction("hi");
+		$result2 = $this->mockiInterface->someFunction("hi");
+		$result3 = $this->mockiInterface->someFunction("hi");
+		
+		$this->assertEquals(1, $result1);
+		$this->assertEquals(2, $result2);
+		$this->assertEquals(3, $result3);
 	}
 }
