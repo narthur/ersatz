@@ -4,10 +4,10 @@ namespace ersatz;
 
 final class TestErsatz extends DevTestCase
 {
-	/** @var Basic $mockBasic */
+	/** @var Basic|Mock $mockBasic */
 	public $mockBasic;
 	
-	/** @var iInterface $mockiInterface */
+	/** @var iInterface|Mock $mockiInterface */
 	public $mockiInterface;
 	
 	public function testCanCreateMockObjectOfOriginalClass()
@@ -18,5 +18,14 @@ final class TestErsatz extends DevTestCase
 	public function testCanCreateMockObjectOfInterface()
 	{
 		$this->assertTrue($this->mockiInterface instanceof iInterface);
+	}
+	
+	public function testSetReturnValue()
+	{
+		$this->mockiInterface->setReturnValue( "someFunction", "returnValue" );
+		
+		$result = $this->mockiInterface->someFunction("hi");
+		
+		$this->assertEquals( "returnValue", $result );
 	}
 }

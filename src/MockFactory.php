@@ -22,11 +22,9 @@ class MockFactory
 		$extends = $reflection->isInterface() ? 'implements' : 'extends';
 		$php[] = <<<EOT
 class $mockShortName $extends $mockedNamespace\\$mockedShortName {
+	use \\ersatz\Mock;
+
 	public function __construct() {}
-	public function setReturnValue( \$method, \$returnValue ) {
-		\$field = \$method . "ReturnValue";
-		\$this->\$field = \$returnValue;
-	}
 	
 	public function setReturnValues( \$method, \$returnValues ) {
 		\$field = \$method . "ReturnValues";
