@@ -2,11 +2,21 @@
 
 namespace ersatz;
 
-final class TestErsatz extends DevTestCase {
+final class TestErsatz extends DevTestCase
+{
 	/** @var Basic $mockBasic */
 	public $mockBasic;
 	
-	public function testCanCreateMockObjectOfOriginalClass() {
-		$this->assertTrue( $this->mockBasic instanceof Basic );
+	/** @var iInterface $mockiInterface */
+	public $mockiInterface;
+	
+	public function testCanCreateMockObjectOfOriginalClass()
+	{
+		$this->assertTrue($this->mockBasic instanceof Basic);
+	}
+	
+	public function testCanCreateMockObjectOfInterface()
+	{
+		$this->assertTrue($this->mockiInterface instanceof iInterface);
 	}
 }
