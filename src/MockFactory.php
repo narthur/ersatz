@@ -15,7 +15,7 @@ class MockFactory
 		}
 		return new $mockClass;
 	}
-	private function declareMockClass( $reflection, $mockShortName, $mockedShortName )
+	private function declareMockClass( \ReflectionClass $reflection, $mockShortName, $mockedShortName )
 	{
 		$php = [];
 		$mockedNamespace = $reflection->getNamespaceName();
@@ -29,32 +29,28 @@ EOT;
 		$toEval = implode( "\n\n", $php );
 		eval( $toEval );
 	}
-	private function addMethodPhp( $reflection, $php )
+	private function addMethodPhp( \ReflectionClass $reflection, $php )
 	{
 		foreach ( $reflection->getMethods() as $method ) {
-			$methodName = $method->name;
-			if ( $methodName === "__construct" ) continue;
-			$params = [];
-			foreach ( $method->getParameters() as $i => $parameter ) {
+			if ( $method->name === "__construct" ) continue;
+			$params = array_reduce( $method->getParameters(), function($carry, \ReflectionParameter $parameter) {
 				if ( $parameter->isArray() ) $type = 'array ';
 				else if ( $parameterClass = $parameter->getClass() ) $type = '\\' . $parameterClass->getName() . ' ';
 				else $type = '';
 				$default = ( $parameter->isOptional() ) ? "= null" : "";
-				
 				if ( $parameter->isVariadic() ) {
-					$params[] = "...\${$parameter->getName()}";
+					return $carry + ["...\${$parameter->getName()}"];
 				} else {
-					$params[] = "$type \${$parameter->getName()} $default";
+					return $carry + ["$type \${$parameter->getName()} $default"];
 				}
-			}
+			}, [] );
 			$paramString = implode( ',', $params );
 			$php[] = <<<EOT
-	public function $methodName($paramString) {
-		return \$this->handleCall("$methodName", func_get_args());
+	public function $method->name($paramString) {
+		return \$this->handleCall("$method->name", func_get_args());
 	}
 EOT;
 		}
-		//var_dump($php);
 		return $php;
 	}
 }
