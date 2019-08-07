@@ -3,8 +3,6 @@
 namespace ersatz;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase {
-	/* Helper Fields */
-	
 	/** @var MockFactory $objectMocker */
 	protected $objectMocker;
 	
